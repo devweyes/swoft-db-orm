@@ -3,6 +3,8 @@
 namespace Swoft\Orm\Relation;
 
 use Closure;
+use Swoft\Bean\Concern\PrototypeTrait;
+use Swoft\Bean\Contract\PrototypeInterface;
 use Swoft\Stdlib\Helper\Arr;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
@@ -10,8 +12,9 @@ use Swoft\Stdlib\Collection;
 use Swoft\Db\Query\Builder as QueryBuilder;
 use Throwable;
 
-abstract class Relation
+abstract class Relation implements PrototypeInterface
 {
+    use PrototypeTrait;
     /**
      * The Eloquent query builder instance.
      *
@@ -60,14 +63,9 @@ abstract class Relation
         $this->parent = $parent;
         $this->related = $query->getModel();
     }
-
-    /**
-     * Create a new instance of the given model.
-     */
-    public static function new(): self
+    public static function new(...$params)
     {
-        $instance = new static(func_get_args());
-        return $instance;
+        // TODO: Implement new() method.
     }
 
     /**

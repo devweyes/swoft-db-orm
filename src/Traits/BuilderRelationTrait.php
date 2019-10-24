@@ -4,7 +4,7 @@ namespace Swoft\Orm\Traits;
 
 use Swoft\Orm\Relation;
 use Closure;
-use Swoft\Orm\RelationException;
+use Swoft\Orm\Exception\RelationException;
 use Swoft\Stdlib\Helper\Str;
 
 trait BuilderRelationTrait

@@ -5,6 +5,8 @@
 
 namespace Swoft\Orm\Annotation\Mapping;
 
+use Doctrine\Common\Annotations\Annotation\Required;
+
 /**
  * Class BelongsTo
  *
@@ -24,7 +26,7 @@ final class BelongsTo
     /**
      * @var string
      */
-    private $entity = '';
+    private $entity;
     /**
      * @var string
      */

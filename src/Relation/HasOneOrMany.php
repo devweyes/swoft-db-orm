@@ -82,6 +82,7 @@ abstract class HasOneOrMany extends Relation
     public function addEagerConstraints(array $models)
     {
         $whereIn = $this->whereInMethod($this->parent, $this->localKey);
+        d($models,33333);
         $this->query->{$whereIn}(
             $this->foreignKey, $this->getKeys($models, $this->localKey)
         );

@@ -36,7 +36,7 @@ class BelongsToParser extends Parser
         $params = [
             'foreign' => $annotationObject->getForeign(),
             'owner' => $annotationObject->getOwner(),
-            'relation' => $annotationObject->getRelation()
+            'relation' => $annotationObject->getRelation() ?: $this->propertyName
         ];
 
         RelationRegister::register(

@@ -36,7 +36,7 @@ class BelongsToManyParser extends Parser
         $params = [
             'foreign' => $annotationObject->getForeign(),
             'owner' => $annotationObject->getOwner(),
-            'relation' => $annotationObject->getRelation(),
+            'relation' => $annotationObject->getRelation() ?: $this->propertyName,
             'pointEntity' => $annotationObject->getPointEntity(),
             'foreignPivot' => $annotationObject->getForeignPivot(),
             'ownerPivot' => $annotationObject->getOwnerPivot()

@@ -68,7 +68,7 @@ trait HasRelationships
      */
     protected function newHasOne(Builder $query, Model $parent, $foreignKey, $localKey)
     {
-        return HasOne::new($query, $parent, $foreignKey, $localKey);
+        return new HasOne($query, $parent, $foreignKey, $localKey);
     }
 
     /**
@@ -80,28 +80,19 @@ trait HasRelationships
      * @param string $relation
      * @return \Swoft\Orm\BelongsTo
      */
-    public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)
+    public function belongsTo($related, $relation, $foreignKey = null, $ownerKey = null)
     {
-        // If no relation name was given, we will use this debug backtrace to extract
-        // the calling method's name and use that as the relationship name as most
-        // of the time this will be what we desire to use for the relationships.
-        if (is_null($relation)) {
-            $relation = $this->guessBelongsToRelation();
-        }
-
         $instance = $this->newRelatedInstance($related);
         // If no foreign key was supplied, we can use a backtrace to guess the proper
         // foreign key name by using the name of the relationship function, which
         // when combined with an "_id" should conventionally match the columns.
-        if (is_null($foreignKey)) {
-            $foreignKey = Str::snake($relation) . '_' . $instance->getKeyName();
-        }
+
+        $foreignKey = $foreignKey ?: Str::snake($relation) . '_' . $instance->getKeyName();
 
         // Once we have the foreign key names, we'll just create a new Eloquent query
         // for the related models and returns the relationship instance which will
         // actually be responsible for retrieving and hydrating every relations.
         $ownerKey = $ownerKey ?: $instance->getKeyName();
-
         return $this->newBelongsTo(
             $instance->query(),
             $this,
@@ -123,19 +114,7 @@ trait HasRelationships
      */
     protected function newBelongsTo(Builder $query, Model $child, $foreignKey, $ownerKey, $relation)
     {
-        return BelongsTo::new($query, $child, $foreignKey, $ownerKey, $relation);
-    }
-
-    /**
-     * Guess the "belongs to" relationship name.
-     *
-     * @return string
-     */
-    protected function guessBelongsToRelation()
-    {
-        [$one, $two, $caller] = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
-
-        return $caller['function'];
+        return new BelongsTo($query, $child, $foreignKey, $ownerKey, $relation);
     }
 
     /**
@@ -173,7 +152,7 @@ trait HasRelationships
      */
     protected function newHasMany(Builder $query, Model $parent, $foreignKey, $localKey)
     {
-        return HasMany::new($query, $parent, $foreignKey, $localKey);
+        return new HasMany($query, $parent, $foreignKey, $localKey);
     }
 
     /**
@@ -191,19 +170,13 @@ trait HasRelationships
     public function belongsToMany(
         $related,
         $pointEntity,
+        $relation,
         $foreignPivotKey = null,
         $relatedPivotKey = null,
         $parentKey = null,
-        $relatedKey = null,
-        $relation = null
-    ) {
-        // If no relationship name was passed, we will pull backtraces to get the
-        // name of the calling function. We will use that function name as the
-        // title of this relation since that is a great convention to apply.
-        if (is_null($relation)) {
-            $relation = $this->guessBelongsToManyRelation();
-        }
-
+        $relatedKey = null
+    )
+    {
         // First, we'll need to determine the foreign key and "other key" for the
         // relationship. Once we have determined the keys we'll make the query
         // instances as well as the relationship instances we need for this.
@@ -250,8 +223,9 @@ trait HasRelationships
         $parentKey,
         $relatedKey,
         $relationName = null
-    ) {
-        return BelongsToMany::new(
+    )
+    {
+        return new BelongsToMany(
             $query,
             $parent,
             $pointEntity,
@@ -261,22 +235,6 @@ trait HasRelationships
             $relatedKey,
             $relationName
         );
-    }
-    /**
-     * Get the relationship name of the belongsToMany relationship.
-     *
-     * @return string|null
-     */
-    protected function guessBelongsToManyRelation()
-    {
-        $caller = Arr::first(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), function ($trace) {
-            return !in_array(
-                $trace['function'],
-                array_merge(static::$manyMethods, ['guessBelongsToManyRelation'])
-            );
-        });
-
-        return !is_null($caller) ? $caller['function'] : null;
     }
 
     /**
@@ -347,6 +305,7 @@ trait HasRelationships
             }
         }
     }
+
     /**
      * Create a new model instance for a related model.
      *

@@ -5,6 +5,8 @@
 
 namespace Swoft\Orm\Annotation\Mapping;
 
+use Doctrine\Common\Annotations\Annotation\Required;
+
 /**
  * Class HasMany
  *
@@ -23,7 +25,7 @@ final class HasMany
     /**
      * @var string
      */
-    private $entity = '';
+    private $entity;
     /**
      * @var string
      */

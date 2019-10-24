@@ -5,6 +5,8 @@
 
 namespace Swoft\Orm\Annotation\Mapping;
 
+use Doctrine\Common\Annotations\Annotation\Required;
+
 /**
  * Class BelongsToMany
  *
@@ -27,11 +29,11 @@ final class BelongsToMany
     /**
      * @var string
      */
-    private $entity = '';
+    private $entity;
     /**
      * @var string
      */
-    private $pointEntity = '';
+    private $pointEntity;
     /**
      * @var string
      */
@@ -47,7 +49,7 @@ final class BelongsToMany
     /**
      * @var string
      */
-    private $ownerPivot = '';
+    private $ownerPivot = null;
 
     /**
      * @var string

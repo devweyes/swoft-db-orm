@@ -3,7 +3,10 @@
 namespace Swoft\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
+use Swoft\Orm\Register\RelationRegister;
+use Swoft\Orm\Relation\Relation;
 use Swoft\Stdlib\Helper\Str;
+use Swoft\Orm\Exception\RelationException;
 
 trait HasAttributesRelation
 {
@@ -142,20 +145,20 @@ trait HasAttributesRelation
         if ($relation['type'] === 'belongsTo') {
             return [
                 $relation['foreignEntity'],
+                $relation['key']['relation'],
                 $relation['key']['foreign'],
-                $relation['key']['owner'],
-                $relation['key']['relation']
+                $relation['key']['owner']
             ];
         }
         if ($relation['type'] === 'belongsToMany') {
             return [
                 $relation['foreignEntity'],
                 $relation['key']['pointEntity'],
+                $relation['key']['relation'],
                 $relation['key']['foreignPivot'],
                 $relation['key']['ownerPivot'],
                 $relation['key']['foreign'],
-                $relation['key']['owner'],
-                $relation['key']['relation']
+                $relation['key']['owner']
             ];
         }
         return null;
@@ -178,6 +181,7 @@ trait HasAttributesRelation
         if (array_key_exists($key, $this->attributesToArray())) {
             return $this->getAttributeValue($key);
         }
+        return null;
         // Here we will determine if the model base class itself contains this given key
         // since we don't want to treat any of those methods as relationships because
         // they are all intended as helper methods and none of these are relations.
@@ -218,7 +222,7 @@ trait HasAttributesRelation
      */
     protected function getRelationshipFromMethod($key)
     {
-        $relation = $this->getAttributeRelationMethod($this, $key);
+        $relation = $this->getAttributeRelationMethod($key);
         return tap($relation->getResults(), function ($results) use ($key) {
             $this->setRelation($key, $results);
         });

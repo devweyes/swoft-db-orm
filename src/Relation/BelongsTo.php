@@ -122,6 +122,7 @@ class BelongsTo extends Relation
      */
     public function addEagerConstraints(array $models)
     {
+        d($models,333);
         // We'll grab the primary key name of the related models since it could be set to
         // a non-standard name and not "id". We will then construct the constraint for
         // our eagerly loading query so it returns the proper models from execution.

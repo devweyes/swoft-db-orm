@@ -7,15 +7,12 @@ use InvalidArgumentException;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
-use Swoft\Db\Eloquent\ModelNotFoundException;
-/**
- * Class BelongsToMany
- * @Bean()
- * @package Swoft\Orm
- */
+use Swoft\Db\Exception\DbException;
+use Swoft\Orm\Traits\InteractsWithPivotTable;
+
 class BelongsToMany extends Relation
 {
-    use Concerns\InteractsWithPivotTable;
+    use InteractsWithPivotTable;
     /**
      * The Entity for the relation.
      * @var Model
@@ -523,7 +520,7 @@ class BelongsToMany extends Relation
      * @param array $columns
      * @return \Swoft\Db\Eloquent\Model|\Swoft\Stdlib\Collection
      *
-     * @throws \Swoft\Db\Eloquent\ModelNotFoundException
+     * @throws \DbException
      */
     public function findOrFail($id, $columns = ['*'])
     {
@@ -537,7 +534,7 @@ class BelongsToMany extends Relation
             return $result;
         }
 
-        throw (new ModelNotFoundException)->setModel(get_class($this->related), $id);
+        throw new DbException('Model is not finded');
     }
 
     /**
@@ -559,7 +556,7 @@ class BelongsToMany extends Relation
      * @param array $columns
      * @return \Swoft\Db\Eloquent\Model|static
      *
-     * @throws \Swoft\Db\Eloquent\ModelNotFoundException
+     * @throws DbException
      */
     public function firstOrFail($columns = ['*'])
     {
@@ -567,7 +564,7 @@ class BelongsToMany extends Relation
             return $model;
         }
 
-        throw (new ModelNotFoundException)->setModel(get_class($this->related));
+        throw new DbException('Model is not finded');
     }
 
     /**

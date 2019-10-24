@@ -4,11 +4,7 @@ namespace Swoft\Orm\Relation;
 
 use Swoft\Stdlib\Collection;
 use Swoft\Db\Eloquent\Model;
-/**
- * Class HasMany
- * @Bean()
- * @package Swoft\Orm
- */
+
 class HasMany extends HasOneOrMany
 {
     /**

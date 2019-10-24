@@ -1,10 +1,10 @@
 <?php
 
-namespace Swoft\Orm\Concerns;
+namespace Swoft\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
 use Swoft\Stdlib\Collection;
-use Illuminate\Support\Collection as BaseCollection;
+use Swoft\Stdlib\Collection as BaseCollection;
 
 trait InteractsWithPivotTable
 {

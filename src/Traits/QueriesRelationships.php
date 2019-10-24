@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Concerns;
+namespace Swoft\Orm\Traits;
 
 use Closure;
 use RuntimeException;

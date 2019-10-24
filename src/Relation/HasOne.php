@@ -4,12 +4,8 @@ namespace Swoft\Orm\Relation;
 
 use Swoft\Db\Eloquent\Model;
 use Swoft\Stdlib\Collection;
-use Swoft\Orm\Concerns\SupportsDefaultModels;
-/**
- * Class HasOne
- * @Bean()
- * @package Swoft\Orm
- */
+use Swoft\Orm\Traits\SupportsDefaultModels;
+
 class HasOne extends HasOneOrMany
 {
     use SupportsDefaultModels;

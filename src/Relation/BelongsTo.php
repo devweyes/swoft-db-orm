@@ -6,14 +6,9 @@ use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
-use Swoft\Orm\Concerns\SupportsDefaultModels;
+use Swoft\Orm\Traits\SupportsDefaultModels;
 use Swoft\Stdlib\Helper\Str;
 
-/**
- * Class BelongsTo
- * @Bean()
- * @package Swoft\Orm
- */
 class BelongsTo extends Relation
 {
     use SupportsDefaultModels;

@@ -47,12 +47,12 @@
     <tr>
        <td>foreign</td>
        <td>是</td>
-       <td>目标关联字段(xxx_id获取)</td>
+       <td>目标关联字段(xxx_id获取 xxx表示本实体转蛇形)</td>
     </tr>
     <tr>
         <td>owner</td>
         <td>否</td>
-        <td>本字段(id获取)</td>
+        <td>本字段(keyName主键获取)</td>
     </tr>
 <table>
 
@@ -78,7 +78,7 @@ class User extends Model
      * @HasOne(
      *     entity=Role::class,
      *     foreign="id",
-     *     owner="role_id"
+     *     owner="user_id"
      * )
      * @var mixed
      */
@@ -120,12 +120,12 @@ class User extends Model
     <tr>
        <td>foreign</td>
        <td>是</td>
-       <td>目标关联字段(xxx_id获取)</td>
+       <td>目标关联字段(xxx_id获取 xxx表示本实体转蛇形)</td>
     </tr>
     <tr>
         <td>owner</td>
         <td>否</td>
-        <td>本字段(id获取)</td>
+        <td>本字段(keyName主键获取)</td>
     </tr>
 <table>
 
@@ -150,8 +150,8 @@ class User extends Model
     /**
      * @HasMany(
      *     entity=Role::class,
-     *     foreign="user_id",
-     *     owner="id"
+     *     foreign="id",
+     *     owner="user_id"
      * )
      * @var mixed
      */
@@ -193,12 +193,12 @@ class User extends Model
     <tr>
        <td>foreign</td>
        <td>是</td>
-       <td>目标关联字段(xxx_id获取)</td>
+       <td>本表字段(xxx_id获取 xxx表示关系名，id表示目标主键)</td>
     </tr>
     <tr>
         <td>owner</td>
         <td>否</td>
-        <td>本字段(id获取)</td>
+        <td>目标表字段(keyName主键获取)</td>
     </tr>
 <table>
 
@@ -223,8 +223,8 @@ class Role extends Model
     /**
      * @BelongsTo(
      *     entity=User::class,
-     *     foreign="id",
-     *     owner="user_id"
+     *     foreign="user_id",
+     *     owner="id"
      * )
      * @var mixed
      */

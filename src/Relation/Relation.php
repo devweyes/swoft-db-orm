@@ -5,6 +5,7 @@ namespace Swoft\Orm\Relation;
 use Closure;
 use Swoft\Bean\Concern\PrototypeTrait;
 use Swoft\Bean\Contract\PrototypeInterface;
+use Swoft\Db\Query\Expression;
 use Swoft\Stdlib\Helper\Arr;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
@@ -191,7 +192,7 @@ abstract class Relation implements PrototypeInterface
         return $this->getRelationExistenceQuery(
             $query,
             $parentQuery,
-            new Expression('count(*)')
+            [Expression::new('count(*)')]
         )->setBindings([], 'select');
     }
 
@@ -207,7 +208,7 @@ abstract class Relation implements PrototypeInterface
      */
     public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
     {
-        return $query->select($columns)->whereColumn(
+        return $query->addSelect($columns)->whereColumn(
             $this->getQualifiedParentKeyName(),
             '=',
             $this->getExistenceCompareKey()

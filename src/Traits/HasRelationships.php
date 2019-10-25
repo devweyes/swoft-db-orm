@@ -35,7 +35,7 @@ trait HasRelationships
      * @var array
      */
     public static $manyMethods = [
-        'belongsToMany', 'morphToMany', 'morphedByMany',
+        'belongsToMany'
     ];
 
     /**

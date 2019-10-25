@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swoft\Orm\Relation;
 
@@ -946,7 +946,7 @@ class BelongsToMany extends Relation
 
         $query->from($this->related->getTable() . ' as ' . $hash = $this->getRelationCountHash());
 
-        $this->related->setTable($hash);
+        //$this->related->setTable($hash);
 
         $this->performJoin($query);
 

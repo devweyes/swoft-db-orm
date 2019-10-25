@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swoft\Orm\Relation;
 
@@ -285,7 +285,7 @@ class BelongsTo extends Relation
             $query->getModel()->getTable() . ' as ' . $hash = $this->getRelationCountHash()
         );
 
-        $query->getModel()->setTable($hash);
+        //$query->getModel()->setTable($hash);
 
         return $query->whereColumn(
             $hash . '.' . $this->ownerKey, '=', $this->getQualifiedForeignKey()

@@ -7,8 +7,7 @@ use RuntimeException;
 use Swoft\Stdlib\Helper\Str;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Db\Query\Expression;
-use Swoft\Orm\MorphTo;
-use Swoft\Orm\Relation;
+use Swoft\Orm\Relation\Relation;
 use Swoft\Db\Query\Builder as QueryBuilder;
 
 trait QueriesRelationships
@@ -31,9 +30,6 @@ trait QueriesRelationships
 
         $relation = $this->getRelationWithoutConstraints($relation);
 
-        if ($relation instanceof MorphTo) {
-            throw new RuntimeException('has() and whereHas() do not support MorphTo relationships.');
-        }
 
         // If we only need to check for the existence of the relation, then we can optimize
         // the subquery to only run a "where exists" clause instead of this full "count"
@@ -43,9 +39,8 @@ trait QueriesRelationships
                         : 'getRelationExistenceCountQuery';
 
         $hasQuery = $relation->{$method}(
-            $relation->getRelated()->newQueryWithoutRelationships(), $this
+            $relation->getRelated()->newQuery(), $this
         );
-
         // Next we will call any given callback as an "anonymous" scope so they can get the
         // proper logical grouping of the where clauses if needed by this Eloquent query
         // builder. Then, we will be ready to finalize and return this query instance.
@@ -53,9 +48,11 @@ trait QueriesRelationships
             $hasQuery->callScope($callback);
         }
 
-        return $this->addHasWhere(
+        $a =  $this->addHasWhere(
             $hasQuery, $relation, $operator, $count, $boolean
         );
+        d($a,1);
+        return  $a;
     }
 
     /**
@@ -195,7 +192,7 @@ trait QueriesRelationships
         }
 
         if (is_null($this->query->columns)) {
-            $this->query->select([$this->query->from.'.*']);
+            $this->query->select($this->query->from.'.*');
         }
 
         $relations = is_array($relations) ? $relations : func_get_args();
@@ -309,7 +306,7 @@ trait QueriesRelationships
     protected function getRelationWithoutConstraints($relation)
     {
         return Relation::noConstraints(function () use ($relation) {
-            return $this->getModel()->{$relation}();
+            return $this->getModel()->getAttributeRelationMethod($relation);
         });
     }
 

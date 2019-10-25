@@ -243,4 +243,13 @@ trait HasAttributesRelation
     {
         $this->pointAttr = $point;
     }
+    /**
+     * Get the default foreign key name for the model.
+     *
+     * @return string
+     */
+    public function getForeignKey()
+    {
+        return Str::snake($this->getClassName()).'_'.$this->getKeyName();
+    }
 }

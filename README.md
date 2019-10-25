@@ -2,29 +2,29 @@
 
 >### <a href="#1">1.简介</a>
 >
->### <a href="#2">2.定义关联</a>	
+>### <a href="#2">2.定义关联</a>
 >>#### <a href="#2_1">2.1.一对一</a>
 >>#### <a href="#2_1">2.1.一对多</a>
 >>#### <a href="#2_1">2.1.一对多(反向)</a>
 >>#### <a href="#2_1">2.1.多对多</a>
 >
->### <a href="#3">3.查询关联</a>	
+>### <a href="#3">3.查询关联</a>
 >>#### <a href="#3_1">3.1.存在关联</a>
 >>#### <a href="#3_2">3.2.筛选关联</a>
 >
->### <a href="#4">4.预加载</a>	
->>#### <a href="#4_1">4.1.为预加载添加约束</a>
+>### <a href="#4">4.预加载</a>
+>>#### <a href="#4_1">4.1.普通预加载</a>
 >>#### <a href="#4_2">4.2.延迟预加载</a>
 >
->### <a href="#5">5.插入 & 更新关联模型</a>	
+>### <a href="#5">5.插入 & 更新关联模型</a>
 >>#### <a href="#5_1">5.1.save 方法</a>
 >>#### <a href="#5_2">5.3.create 方法</a>
 >>#### <a href="#5_1">5.3.更新 Belongs To 关联</a>
 >>#### <a href="#5_2">5.4.多对多关联</a>
 >
- 
- 
- 
+
+
+
 >
 >
 ### <a name="1">1.简介</a>
@@ -35,7 +35,7 @@
 > 一般只需定义两个注解，及Getter Setter。
 > @RelationPassive() 为切面注解，如需预加载，必不可缺。
 
-**一对一**
+**<a name="2.1">2.1 一对一</a>**
 <table>
     <tr>
         <th>字段</th>
@@ -107,7 +107,7 @@ class User extends Model
  }
 ```
 
-**一对多**
+**<a name="2.2">2.2 一对多</a>**
 
 <table>
     <tr>
@@ -180,7 +180,7 @@ class User extends Model
  }
 ```
 
-**一对多(反向)**
+**<a name="2.3">2.3 一对多（反向）</a>**
 
 <table>
     <tr>
@@ -253,7 +253,7 @@ class Role extends Model
  }
 ```
 
-**多对多**
+**<a name="2.4">2.4 多对多</a>**
 <table>
     <tr>
         <th>字段</th>
@@ -341,6 +341,78 @@ class User extends Model
     }
 }
 ```
+### <a name="3">3.查询关联</a>
 
+**<a name="3.1">3.1 存在关联</a>**
 
+当通过模型获取数据时，你可能希望限制在一个已存在的关系上。比如说，你想要获取至少包含一条评论的博客文章。你就应该这样做，使用针对关联关系的 has and orHas 方法：
+
+```php
+// 获取至少有一条评论的文章
+$posts = App\Post::has('comments')->get();
+```
+```php
+// 获取至少有3
+$posts = App\Post::has('comments', '>=', 3)->get();
+```
+```php
+// 获取至少有一条评论的文章，并加载评论的投票信息
+$posts = App\Post::has('comments.votes')->get();
+```
+
+**<a name="3.2">3.2 筛选关联</a>**
+
+如果你想要做更多特性，你还可以使用 whereHas 和  orWhereHas 方法，在方法中，你可以指定 「where」 条件在你的 has 语句之中。这些方法允许你在关联查询之中添加自定义的条件约束，比如检查评论的内容：
+
+```php
+// 获取所有至少有一条评论的文章且评论内容以 foo 开头
+$posts = App\Post::whereHas('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+```
+
+### <a name="4">4.预加载</a>
+
+**<a name="4.1">4.1 普通预加载</a>**
+```php
+//获取书作者
+$books = App\Book::with('author')->get();
+foreach ($books as $book) {
+        echo $book->getAuthor()->getName;
+}
+```
+
+```php
+//或书的作者及作者联系人
+$books = App\Book::with('author.contacts')->get();
+foreach ($books as $book) {
+        echo $book->getAuthor()->getContacts()->getName;
+}
+```
+
+```php
+//获取书及作者 并且作者为tom,只需要作者的id name信息，且按照作者id排序
+$users = App\Book::with(['author' => function ($query) {
+        $query->where('name', '=', '%tom%')
+            ->select('id','name')
+            ->orderBy('id');
+}])->get();
+```
+
+**<a name="4.2">4.2 延迟预加载</a>**
+
+有可能你还希望在模型加载完成后在进行预加载。举例来说，如果你想要动态的加载关联数据，那么 load 方法对你来说会非常有用：
+
+```php
+$books = App\Book::all();
+
+if ($someCondition) {
+        $books->load('author', 'publisher');
+}
+```
+```php
+$books->load(['author' => function ($query) {
+        $query->orderBy('published_date', 'asc');
+}]);
+```
 

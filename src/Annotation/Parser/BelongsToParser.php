@@ -34,8 +34,8 @@ class BelongsToParser extends Parser
             throw new AnnotationException('Annotation BelongsTo shoud on property!');
         }
         $params = [
-            'foreign' => $annotationObject->getForeign(),
-            'owner' => $annotationObject->getOwner(),
+            'foreign' => $annotationObject->getOwner(),
+            'owner' => $annotationObject->getForeign(),
             'relation' => $annotationObject->getRelation() ?: $this->propertyName
         ];
 

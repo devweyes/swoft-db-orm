@@ -2,6 +2,7 @@
 
 namespace Swoft\Orm\Traits;
 
+use Swoft\Db\Eloquent\Collection;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Orm\Register\RelationRegister;
 use Swoft\Orm\Relation\Relation;
@@ -15,6 +16,13 @@ trait HasAttributesRelation
      * @var Model|null $pointAttr
      */
     protected $pointAttr;
+    /**
+     * Indicates whether attributes are snake cased on arrays.
+     *
+     * @var bool
+     */
+    private static $snakeAttributes = true;
+
     /**
      * get relation result
      * @param string $key
@@ -213,6 +221,38 @@ trait HasAttributesRelation
     }
 
     /**
+     * Get the model's relationships in array form.
+     *
+     * @return array
+     */
+    public function relationsToArray()
+    {
+        $attributes = [];
+
+
+        foreach ($this->getRelations() as $key => $value) {
+            $relation = null;
+            // If the values implements the Arrayable interface we can just call this
+            // toArray method on the instances which will convert both models and
+            // collections to their proper array form and we'll set the values.
+            if ($value instanceof Collection || $value instanceof Model) {
+                $relation = $value->toArray();
+            }
+
+            // If the relationships snake-casing is enabled, we will snake case this
+            // key so that the relation attribute is snake cased in this returned
+            // array to the developers, making this consistent with attributes.
+            if (self::$snakeAttributes) {
+                $key = Str::snake($key);
+            }
+            $attributes[$key] = $relation ?: [];
+
+            unset($relation);
+        }
+        return $attributes;
+    }
+
+    /**
      * Get a relationship value from a method.
      *
      * @param string $method
@@ -243,6 +283,7 @@ trait HasAttributesRelation
     {
         $this->pointAttr = $point;
     }
+
     /**
      * Get the default foreign key name for the model.
      *
@@ -250,6 +291,6 @@ trait HasAttributesRelation
      */
     public function getForeignKey()
     {
-        return Str::snake($this->getClassName()).'_'.$this->getKeyName();
+        return Str::snake($this->getClassName()) . '_' . $this->getKeyName();
     }
 }

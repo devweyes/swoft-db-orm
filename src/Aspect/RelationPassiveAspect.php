@@ -54,13 +54,17 @@ class RelationPassiveAspect
     {
         $method = $joinPoint->getMethod();
         $class = $joinPoint->getTarget();
-        $key = strtolower(str_replace('get', '', $method));
+        $key = lcfirst(str_replace('get', '', $method));
+        /** @var \Jcsp\Core\Model\Model $class */
         if (!$class instanceof Model) {
             throw new RelationException(sprintf(
                 '%s::%s not instanceof {Swoft\Db\Eloquent\Model}',
                 $this->getClassName(),
                 $key
             ));
+        }
+        if($class->hasRelation($key)) {
+            return $class->getRelation($key);
         }
         return $class->getRelationResults($key);
     }

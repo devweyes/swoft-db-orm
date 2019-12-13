@@ -55,7 +55,6 @@ final class BelongsToMany
      * @var string
      */
     private $relation = '';
-
     /**
      * Entity constructor.
      *

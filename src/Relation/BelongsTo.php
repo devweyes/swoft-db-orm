@@ -193,7 +193,7 @@ class BelongsTo extends Relation
         $dictionary = [];
 
         foreach ($results as $result) {
-            $dictionary[$result->getAttribute($owner)] = $result;
+            $dictionary[$result->{$foreign}()] = $result;
         }
 
         // Once we have the dictionary constructed, we can loop through all the parents

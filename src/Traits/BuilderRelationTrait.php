@@ -2,8 +2,9 @@
 
 namespace Swoft\Orm\Traits;
 
+use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Query\Builder;
-use Swoft\Orm\Relation;
+use Swoft\Orm\Relation\Relation;
 use Closure;
 use Swoft\Orm\Exception\RelationException;
 use Swoft\Stdlib\Collection;
@@ -232,12 +233,12 @@ trait BuilderRelationTrait
      * @param  array  $attributes
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function newModelInstance($attributes = [])
-    {
-        return $this->model->newInstance($attributes)->setConnection(
-            $this->query->getConnection()->getName()
-        );
-    }
+//    public function newModelInstance($attributes = []) :Model
+//    {
+//        return $this->model->newInstance($attributes)->setConnection(
+//            $this->query->getConnection()->getName()
+//        );
+//    }
 
     /**
      * Parse a list of relations into individuals.

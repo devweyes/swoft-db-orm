@@ -224,7 +224,7 @@ abstract class Relation implements PrototypeInterface
      */
     protected function getKeys(array $models, $key = null)
     {
-        return collect($models)->map(function ($value) use ($key) {
+        return Collection::make($models)->map(function ($value) use ($key) {
             /** @var Model $value */
             return $key ? $value->getAttributeAble($key) : $value->getKey();
         })->values()->unique(null, true)->sort()->all();

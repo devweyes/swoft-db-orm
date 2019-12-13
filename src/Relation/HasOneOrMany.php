@@ -5,9 +5,11 @@ namespace Swoft\Orm\Relation;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
+use Swoft\Stdlib\Helper\Str;
 
 abstract class HasOneOrMany extends Relation
 {
+
     /**
      * The foreign key of the parent model.
      *
@@ -141,7 +143,6 @@ abstract class HasOneOrMany extends Relation
 
         return $models;
     }
-
     /**
      * Get the value of a relationship by one or many type.
      *
@@ -160,14 +161,15 @@ abstract class HasOneOrMany extends Relation
     /**
      * Build model dictionary keyed by the relation's foreign key.
      *
-     * @param \Swoft\Stdlib\Collection $results
+     * @param Collection $results
      * @return array
      */
     protected function buildDictionary(Collection $results)
     {
-        $getterValue = $this->getRelationValue($this->getForeignKeyName());
-        return $results->mapToDictionary(function ($result) use ($getterValue) {
-            return [$getterValue => $result];
+        $foreign = $this->getForeignKeyName();
+        $getterKey = sprintf('get%s', ucfirst(Str::camel($this->getForeignKeyName())));
+        return $results->mapToDictionary(function ($result) use ($getterKey) {
+            return [$result->{$getterKey}() => $result];
         })->all();
     }
 

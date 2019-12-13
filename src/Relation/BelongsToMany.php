@@ -616,7 +616,6 @@ class BelongsToMany extends Relation
 
         return array_merge($columns, $this->aliasedPivotColumns());
     }
-
     /**
      * Get the pivot columns for the relation.
      *
@@ -627,7 +626,7 @@ class BelongsToMany extends Relation
     protected function aliasedPivotColumns()
     {
         $defaults = [$this->foreignPivotKey, $this->relatedPivotKey];
-        return collect(array_merge($defaults, $this->pivotColumns))->map(function ($column) {
+        return Collection::make(array_merge($defaults, $this->pivotColumns))->map(function ($column) {
             return $this->pointEntity->getTable() . '.' . $column . ' as pivot_' . $column;
         })->unique()->all();
     }

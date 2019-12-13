@@ -1,4 +1,4 @@
-## Swoft ORM 模型关联
+# ORM 模型关联
 
 >### <a href="#1">1.简介</a>
 >
@@ -27,12 +27,17 @@
 
 数据库表通常相互关联。例如，一篇博客文章可能有很多评论，或者一个订单对应一个下单用户。 ORM 让这些关联的管理和使用变得简单，并支持多种类型的关联
 
+* composer
+```
+composer require swoft/db-orm
+```
+
 ### <a name="2">2.定义关联</a>
 
 > 一般只需定义两个注解，及Getter Setter。
 > @RelationPassive() 为切面注解，如需预加载，必不可缺。
 
-#### <a name="2_1">2.1 一对一</a>
+#### <a name="2_1">2.1 一对一hasOne</a>
 <table>
     <tr>
         <th>字段</th>
@@ -104,7 +109,7 @@ class User extends Model
  }
 ```
 
-#### <a name="2_2">2.2 一对多</a>
+#### <a name="2_2">2.2 一对多hasMany</a>
 
 <table>
     <tr>
@@ -177,7 +182,7 @@ class User extends Model
  }
 ```
 
-#### <a name="2_3">2.3 一对多（反向）</a>
+#### <a name="2_3">2.3 一对多（反向）belongsTo</a>
 
 <table>
     <tr>
@@ -191,13 +196,13 @@ class User extends Model
         <td>目标实体</td>
     </tr>
     <tr>
-       <td>foreign</td>
-       <td>是</td>
+       <td>owner</td>
+       <td>否</td>
        <td>本表字段(xxx_id获取 xxx表示关系名，id表示目标主键)</td>
     </tr>
     <tr>
-        <td>owner</td>
-        <td>否</td>
+        <td>foreign</td>
+        <td>是</td>
         <td>目标表字段(keyName主键获取)</td>
     </tr>
 <table>
@@ -250,7 +255,7 @@ class Role extends Model
  }
 ```
 
-#### <a name="2_4">2.4 多对多</a>
+#### <a name="2_4">2.4 多对多belongsToMany</a>
 <table>
     <tr>
         <th>字段</th>
@@ -412,4 +417,3 @@ $books->load(['author' => function ($query) {
         $query->orderBy('published_date', 'asc');
 }]);
 ```
-

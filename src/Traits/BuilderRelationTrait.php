@@ -3,6 +3,7 @@
 namespace Swoft\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
+use Swoft\Db\Exception\DbException;
 use Swoft\Db\Query\Builder;
 use Swoft\Orm\Relation\Relation;
 use Closure;
@@ -30,6 +31,26 @@ trait BuilderRelationTrait
      * @var array
      */
     protected $removedScopes = [];
+    /**
+     * 重写swoft get方法用于ORM
+     * Execute the query as a "select" statement.
+     *
+     * @param array $columns
+     *
+     * @return \Swoft\Db\Eloquent\Collection
+     * @throws DbException
+     */
+    public function get(array $columns = ['*']): Collection
+    {
+        $builder = $this;
+        // If we actually found models we will also eager load any relationships that
+        // have been specified as needing to be eager loaded, which will solve the
+        // n+1 query issue for the developers to avoid running a lot of queries.
+        if (count($models = $builder->getModels($columns)) > 0) {
+            $models = $builder->eagerLoadRelations($models);
+        }
+        return $builder->getModel()->newCollection($models);
+    }
     /**
      * Eager load the relationships for the models.
      *
@@ -359,11 +380,13 @@ trait BuilderRelationTrait
         $query->wheres = [];
 
         $this->groupWhereSliceForScope(
-            $query, array_slice($allWheres, 0, $originalWhereCount)
+            $query,
+            array_slice($allWheres, 0, $originalWhereCount)
         );
 
         $this->groupWhereSliceForScope(
-            $query, array_slice($allWheres, $originalWhereCount)
+            $query,
+            array_slice($allWheres, $originalWhereCount)
         );
     }
 
@@ -383,7 +406,8 @@ trait BuilderRelationTrait
         // we don't add any unnecessary nesting thus keeping the query clean.
         if ($whereBooleans->contains('or')) {
             $query->wheres[] = $this->createNestedWhere(
-                $whereSlice, $whereBooleans->first()
+                $whereSlice,
+                $whereBooleans->first()
             );
         } else {
             $query->wheres = array_merge($query->wheres, $whereSlice);

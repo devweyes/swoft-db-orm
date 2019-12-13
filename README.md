@@ -27,12 +27,15 @@
 
 数据库表通常相互关联。例如，一篇博客文章可能有很多评论，或者一个订单对应一个下单用户。 ORM 让这些关联的管理和使用变得简单，并支持多种类型的关联
 
-* composer
+#### 1.1 composer
 ```
 composer require swoft/db-orm
 ```
-
-### <a name="2">2.定义关联</a>
+#### 1.2 实体需继承 Model 
+```php
+class Model extends \Swoft\Orm\Eloquent\Model
+```
+### <a name="2">2 定义关联</a>
 
 > 一般只需定义两个注解，及Getter Setter。
 > @RelationPassive() 为切面注解，如需预加载，必不可缺。

@@ -365,7 +365,7 @@ $posts = App\Post::has('comments', '>=', 3)->get();
 $posts = App\Post::has('comments.votes')->get();
 ```
 
-#### a name="3_2">3.2 筛选关联</a>
+#### <a name="3_2">3.2 筛选关联</a>
 
 如果你想要做更多特性，你还可以使用 whereHas 和  orWhereHas 方法，在方法中，你可以指定 「where」 条件在你的 has 语句之中。这些方法允许你在关联查询之中添加自定义的条件约束，比如检查评论的内容：
 

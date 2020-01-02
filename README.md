@@ -29,11 +29,11 @@
 
 #### 1.1 composer
 ```
-composer require swoft/db-orm
+composer require devweyes/db-orm
 ```
 #### 1.2 实体需继承 Model 
 ```php
-class Model extends \Swoft\Orm\Eloquent\Model
+class Model extends \Jcsp\Orm\Eloquent\Model
 ```
 ### <a name="2">2 定义关联</a>
 

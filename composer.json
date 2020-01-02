@@ -1,5 +1,5 @@
 {
-	"name": "kaychem/db-orm",
+	"name": "devweyes/db-orm",
 	"description": "databse orm for swoft",
 	"license": "MIT",
 	"autoload": {

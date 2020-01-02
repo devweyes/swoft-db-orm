@@ -1,13 +1,13 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Exception\DbException;
 use Swoft\Db\Query\Builder;
-use Swoft\Orm\Relation\Relation;
+use Jcsp\Orm\Relation\Relation;
 use Closure;
-use Swoft\Orm\Exception\RelationException;
+use Jcsp\Orm\Exception\RelationException;
 use Swoft\Stdlib\Collection;
 use Swoft\Stdlib\Helper\Str;
 

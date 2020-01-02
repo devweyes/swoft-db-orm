@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Relation;
+namespace Jcsp\Orm\Relation;
 
 use Closure;
 use Swoft\Bean\Concern\PrototypeTrait;

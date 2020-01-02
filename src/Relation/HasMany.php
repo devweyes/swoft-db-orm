@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Relation;
+namespace Jcsp\Orm\Relation;
 
 use Swoft\Stdlib\Collection;
 use Swoft\Db\Eloquent\Model;

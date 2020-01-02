@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Swoft\Orm\Relation;
+namespace Jcsp\Orm\Relation;
 
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
-use Swoft\Orm\Traits\SupportsDefaultModels;
+use Jcsp\Orm\Traits\SupportsDefaultModels;
 use Swoft\Stdlib\Helper\Str;
 
 class BelongsTo extends Relation

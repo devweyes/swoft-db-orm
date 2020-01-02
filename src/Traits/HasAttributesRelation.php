@@ -1,13 +1,13 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Swoft\Db\Eloquent\Collection;
 use Swoft\Db\Eloquent\Model;
-use Swoft\Orm\Register\RelationRegister;
-use Swoft\Orm\Relation\Relation;
+use Jcsp\Orm\Register\RelationRegister;
+use Jcsp\Orm\Relation\Relation;
 use Swoft\Stdlib\Helper\Str;
-use Swoft\Orm\Exception\RelationException;
+use Jcsp\Orm\Exception\RelationException;
 
 trait HasAttributesRelation
 {

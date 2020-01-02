@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Swoft\Orm\Eloquent;
+namespace Jcsp\Orm\Eloquent;
 
 use Swoft\Db\Eloquent\Collection;
 use Swoft\Db\Exception\DbException;
-use Swoft\Orm\Traits\BuilderRelationTrait;
+use Jcsp\Orm\Traits\BuilderRelationTrait;
 
 class Builder extends \Swoft\Db\Eloquent\Builder
 {

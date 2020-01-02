@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Swoft\Orm\Relation;
+namespace Jcsp\Orm\Relation;
 
 use Swoft\Stdlib\Helper\Str;
 use InvalidArgumentException;
@@ -8,7 +8,7 @@ use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
 use Swoft\Db\Exception\DbException;
-use Swoft\Orm\Traits\InteractsWithPivotTable;
+use Jcsp\Orm\Traits\InteractsWithPivotTable;
 
 class BelongsToMany extends Relation
 {

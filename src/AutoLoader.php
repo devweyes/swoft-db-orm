@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Swoft\Orm;
+namespace Jcsp\Orm;
 
 use Swoft\Helper\ComposerJSON;
 use Swoft\SwoftComponent;

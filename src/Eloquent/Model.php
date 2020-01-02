@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Swoft\Orm\Eloquent;
+namespace Jcsp\Orm\Eloquent;
 
 use Swoft\Db\Exception\DbException;
-use Swoft\Orm\Traits\HasAttributesRelation;
-use Swoft\Orm\Traits\HasRelationships;
+use Jcsp\Orm\Traits\HasAttributesRelation;
+use Jcsp\Orm\Traits\HasRelationships;
 
 /**
  * Class Model

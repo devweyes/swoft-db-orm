@@ -1,8 +1,8 @@
 <?php
 
-namespace Swoft\Orm\Aspect;
+namespace Jcsp\Orm\Aspect;
 
-use Swoft\Orm\Exception\RelationException;
+use Jcsp\Orm\Exception\RelationException;
 use Swoft\Aop\Annotation\Mapping\After;
 use Swoft\Aop\Annotation\Mapping\AfterReturning;
 use Swoft\Aop\Annotation\Mapping\AfterThrowing;
@@ -13,7 +13,7 @@ use Swoft\Aop\Annotation\Mapping\PointAnnotation;
 use Swoft\Aop\Annotation\Mapping\PointBean;
 use Swoft\Aop\Point\JoinPoint;
 use Swoft\Aop\Point\ProceedingJoinPoint;
-use Swoft\Orm\Annotation\Mapping\RelationPassive;
+use Jcsp\Orm\Annotation\Mapping\RelationPassive;
 use Swoft\Db\Eloquent\Model;
 
 /**

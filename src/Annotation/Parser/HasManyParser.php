@@ -3,16 +3,16 @@
  * Define an inverse one-to-many relationship parser.
  */
 
-namespace Swoft\Orm\Annotation\Parser;
+namespace Jcsp\Orm\Annotation\Parser;
 
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use Swoft\Annotation\Annotation\Parser\Parser;
 use Swoft\Annotation\Exception\AnnotationException;
 use Swoft\Bean\Annotation\Mapping\Bean;
-use Swoft\Orm\Annotation\Mapping\HasMany;
-use Swoft\Orm\Annotation\Mapping\Relation;
+use Jcsp\Orm\Annotation\Mapping\HasMany;
+use Jcsp\Orm\Annotation\Mapping\Relation;
 use App\EntityRegister;
-use Swoft\Orm\Register\RelationRegister;
+use Jcsp\Orm\Register\RelationRegister;
 
 /**
  * Class EntityParser

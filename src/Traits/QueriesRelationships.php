@@ -1,13 +1,13 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Closure;
 use RuntimeException;
 use Swoft\Stdlib\Helper\Str;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Db\Query\Expression;
-use Swoft\Orm\Relation\Relation;
+use Jcsp\Orm\Relation\Relation;
 use Swoft\Db\Query\Builder as QueryBuilder;
 
 trait QueriesRelationships

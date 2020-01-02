@@ -1,10 +1,10 @@
 <?php
 
-namespace Swoft\Orm\Relation;
+namespace Jcsp\Orm\Relation;
 
 use Swoft\Db\Eloquent\Model;
 use Swoft\Stdlib\Collection;
-use Swoft\Orm\Traits\SupportsDefaultModels;
+use Jcsp\Orm\Traits\SupportsDefaultModels;
 
 class HasOne extends HasOneOrMany
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Exception;
+namespace Jcsp\Orm\Exception;
 
 class RelationException extends \Exception
 {

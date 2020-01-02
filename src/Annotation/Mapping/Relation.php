@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Annotation\Mapping;
+namespace Jcsp\Orm\Annotation\Mapping;
 
 class Relation
 {

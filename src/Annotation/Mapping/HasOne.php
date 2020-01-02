@@ -3,7 +3,7 @@
  * Define an inverse one-to-one  relationship.
  */
 
-namespace Swoft\Orm\Annotation\Mapping;
+namespace Jcsp\Orm\Annotation\Mapping;
 
 use Doctrine\Common\Annotations\Annotation\Required;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Swoft\Bean\BeanFactory;
 use Swoft\Stdlib\Helper\Arr;
@@ -8,10 +8,10 @@ use Swoft\Stdlib\Helper\Str;
 use Swoft\Db\Eloquent\Model;
 use Swoft\Db\Eloquent\Builder;
 use Swoft\Stdlib\Collection;
-use Swoft\Orm\Relation\HasMany;
-use Swoft\Orm\Relation\HasOne;
-use Swoft\Orm\Relation\BelongsTo;
-use Swoft\Orm\Relation\BelongsToMany;
+use Jcsp\Orm\Relation\HasMany;
+use Jcsp\Orm\Relation\HasOne;
+use Jcsp\Orm\Relation\BelongsTo;
+use Jcsp\Orm\Relation\BelongsToMany;
 
 trait HasRelationships
 {
@@ -44,7 +44,7 @@ trait HasRelationships
      * @param string $related
      * @param string $foreignKey
      * @param string $localKey
-     * @return \Swoft\Orm\HasOne
+     * @return \Jcsp\Orm\HasOne
      */
     public function hasOne($related, $foreignKey = null, $localKey = null)
     {
@@ -64,7 +64,7 @@ trait HasRelationships
      * @param \Swoft\Db\Eloquent\Model $parent
      * @param string $foreignKey
      * @param string $localKey
-     * @return \Swoft\Orm\HasOne
+     * @return \Jcsp\Orm\HasOne
      */
     protected function newHasOne(Builder $query, Model $parent, $foreignKey, $localKey)
     {
@@ -78,7 +78,7 @@ trait HasRelationships
      * @param string $foreignKey
      * @param string $ownerKey
      * @param string $relation
-     * @return \Swoft\Orm\BelongsTo
+     * @return \Jcsp\Orm\BelongsTo
      */
     public function belongsTo($related, $relation, $foreignKey = null, $ownerKey = null)
     {
@@ -110,7 +110,7 @@ trait HasRelationships
      * @param string $foreignKey
      * @param string $ownerKey
      * @param string $relation
-     * @return \Swoft\Orm\BelongsTo
+     * @return \Jcsp\Orm\BelongsTo
      */
     protected function newBelongsTo(Builder $query, Model $child, $foreignKey, $ownerKey, $relation)
     {
@@ -123,7 +123,7 @@ trait HasRelationships
      * @param string $related
      * @param string $foreignKey
      * @param string $localKey
-     * @return \Swoft\Orm\HasMany
+     * @return \Jcsp\Orm\HasMany
      */
     public function hasMany($related, $foreignKey = null, $localKey = null)
     {
@@ -148,7 +148,7 @@ trait HasRelationships
      * @param \Swoft\Db\Eloquent\Model $parent
      * @param string $foreignKey
      * @param string $localKey
-     * @return \Swoft\Orm\HasMany
+     * @return \Jcsp\Orm\HasMany
      */
     protected function newHasMany(Builder $query, Model $parent, $foreignKey, $localKey)
     {
@@ -165,7 +165,7 @@ trait HasRelationships
      * @param string $parentKey
      * @param string $relatedKey
      * @param string $relation
-     * @return \Swoft\Orm\BelongsToMany
+     * @return \Jcsp\Orm\BelongsToMany
      */
     public function belongsToMany(
         $related,
@@ -212,7 +212,7 @@ trait HasRelationships
      * @param string $parentKey
      * @param string $relatedKey
      * @param string $relationName
-     * @return \Swoft\Orm\BelongsToMany
+     * @return \Jcsp\Orm\BelongsToMany
      */
     protected function newBelongsToMany(
         Builder $query,

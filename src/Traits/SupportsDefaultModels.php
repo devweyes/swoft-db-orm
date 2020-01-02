@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
 

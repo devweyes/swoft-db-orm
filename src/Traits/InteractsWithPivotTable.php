@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Orm\Traits;
+namespace Jcsp\Orm\Traits;
 
 use Swoft\Db\Eloquent\Model;
 use Swoft\Stdlib\Collection;
@@ -387,7 +387,7 @@ trait InteractsWithPivotTable
      *
      * @param  array  $attributes
      * @param  bool   $exists
-     * @return \Swoft\Orm\Pivot
+     * @return \Jcsp\Orm\Pivot
      */
     public function newPivot(array $attributes = [], $exists = false)
     {
